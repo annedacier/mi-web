@@ -98,7 +98,7 @@
   }
 
   html {
-    scroll-behavior: 100px;
+    scroll-behavior: smooth;
   }
 
   body {
