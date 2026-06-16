@@ -20,15 +20,22 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
   // location.state, scroll to the matching section.
   useEffect(() => {
     const state = location.state as { scrollTo?: string } | null;
-    if (location.pathname === "/" && state?.scrollTo) {
+      if (location.pathname !== "/") return;
+      if (!state?.scrollTo) return;
+
       const id = state.scrollTo;
-      requestAnimationFrame(() => {
-        document
-          .getElementById(id)
-          ?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }
-  }, [location.pathname, location.state]);
+    // evita scroll automático del navegador interfiriendo
+      window.scrollTo(0, 0);
+
+      const timeout = setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 80);
+
+      return () => clearTimeout(timeout);
+    }, [location.pathname]);
 
   // Scroll-spy: observe sections on the home page and highlight the
   // matching sidebar entry. Sections are <section id={categoryId}> in Index.
