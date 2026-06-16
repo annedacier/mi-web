@@ -104,7 +104,7 @@ const Index = () => {
             key={cat.id}
             id={cat.id}
             data-category={cat.id}
-            className="px-4 md:px-10 lg:px-16 pt-12 md:pt-16 pb-24 md:pb-32 border-b border-border/40 last:border-b-0 first:pt-10 md:first:pt-14 scroll-mt-10"
+            className="px-4 md:px-10 lg:px-16 pt-12 md:pt-16 pb-24 md:pb-32 border-b border-border/40 last:border-b-0 first:pt-10 md:first:pt-14 scroll-mt-0"
           >
             <motion.header
               initial={{ opacity: 0, y: 16 }}
