@@ -13,6 +13,16 @@ const variants = [
 ];
 
 const Index = () => {
+  // 🚫 PROYECTOS (true = proyectos / false = fotos sueltas)
+  const SHOW_PROJECTS = false;
+  const getCategoryImages = (cat: any) => {
+    if (SHOW_PROJECTS) {
+      return cat.projects;
+    }
+
+    return cat.projects.flatMap((p: any) => p.images);
+  };
+
   return (
     <SiteLayout>
       <SEO />
@@ -38,7 +48,7 @@ const Index = () => {
           </motion.header>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-x-3 md:gap-x-6 gap-y-10 md:gap-y-16">
-            {cat.projects.map((project, i) => {
+            {getCategoryImages(cat).map((project: any, i: number) => {
               const v = variants[(sIdx + i) % variants.length];
               return (
                 <motion.div
@@ -58,8 +68,8 @@ const Index = () => {
                       className={`relative overflow-hidden bg-muted ${v.aspect}`}
                     >
                       <img
-                        src={project.cover}
-                        alt={project.title}
+                        src={project.cover ?? project}
+                        alt={project.title ?? ""}
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-[1600ms] ease-out group-hover:scale-[1.04]"
                       />

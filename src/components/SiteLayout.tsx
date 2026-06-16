@@ -110,8 +110,13 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
             const isProjectOfCategory = c.projects.some(
               (p) => location.pathname === `/projects/${p.id}`
             );
-            const showProjects = 
-              c.projects.length > 0 && isActive || isProjectOfCategory;            
+
+  // 🚫 PROYECTOS (true = proyectos / false = fotos sueltas)
+            const SHOW_PROJECTS = false;
+            
+            const showProjects = SHOW_PROJECTS && (
+              c.projects.length > 0 && isActive || isProjectOfCategory
+            );            
             return (
               <div key={c.id} className="py-0.5 md:py-1">
                 <button
