@@ -81,7 +81,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
   };
 
   const SidebarContent = (
-    <div className="flex flex-col h-full py-8 pl-4 pr-6 text-left">
+    <div className="flex flex-col h-full py-4 md:py-8 px-4 md:pl-4 md:pr-6 text-left">
       {/* Brand */}
       <div className="flex-1">
         <Link
@@ -93,7 +93,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="block text-center"
+          className="hidden md:block text-center"
         >
           <span
             className="block text-[1.4rem] leading-none text-foreground font-bold uppercase tracking-[0.08em]"
@@ -104,7 +104,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
         </Link>
 
         {/* Categories (desktop + mobile) */}
-        <nav className="flex flex-col mt-10">
+        <nav className="flex flex-col mt-4 md:mt-10">
           {portfolio.map((c) => {
             const routeActive =
               location.pathname === `/projects/${c.id}` ||
@@ -116,7 +116,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
             const showProjects = 
               c.projects.length > 0 && isActive || isProjectOfCategory;            
             return (
-              <div key={c.id} className="py-1">
+              <div key={c.id} className="py-0.5 md:py-1">
                 <button
                   type="button"
                   className={`${categoryClass(isActive)} text-left w-full`}
@@ -227,7 +227,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden fixed inset-0 z-30 bg-background pt-20"
+            className="md:hidden fixed top-16 right-4 w-[260px] max-h-[calc(100vh-5rem)] overflow-hidden z-50 bg-background/95 backdrop-blur-md border border-border/40 rounded-xl shadow-xl p-4"
           >
             {SidebarContent}
           </motion.div>
@@ -235,10 +235,12 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       </AnimatePresence>
 
       {/* Main content area */}
-      <main className="md:ml-48 pt-20 md:pt-0 pb-16 flex-1">{children}</main>
+      <main className="md:ml-48 pt-20 md:pt-0 pb-safe pb-16 flex-1">
+        {children}
+      </main>
 
       {/* Bottom bar */}
-      <footer className="md:ml-48 border-t border-border/40 px-6 md:px-10 py-5 flex items-center justify-between text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground/70 font-light">
+      <footer className="md:ml-48 border-t border-border/30 px-6 md:px-8 py-3 flex items-center justify-between text-[0.45rem] tracking-[0.18em] uppercase text-muted-foreground/70 font-light">
         <span style={sublabelFontStyle}>Yuri Dacier · Photographer</span>
         <span style={sublabelFontStyle}>
           © {new Date().getFullYear()}, All Rights Reserved
