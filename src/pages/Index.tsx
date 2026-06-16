@@ -200,7 +200,7 @@ const Index = () => {
               onClick={(e) => e.stopPropagation()}
               initial={{ scale: 0.98, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.98, opacity: 0 }}
+              exit={{ scale: 0.6, opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             />
           </motion.div>

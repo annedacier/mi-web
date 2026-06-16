@@ -161,7 +161,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       </div>
 
       {/* Contact info */}
-      <div className="mt-4 md:mt-8 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground font-light">
+      <div className="mt-4 md:mt-8 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground">
         <NavLink
           to="/contact"
           className="block text-[1.20rem] font-medium tracking-[0.04em] text-foreground normal-case hover:opacity-60 transition-opacity"
@@ -170,7 +170,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
         >
           Contact
         </NavLink>
-        <div className="mt-6 md:mt-32 space-y-2 md:space-y-4">
+        <div className="mt-6 md:mt-80 space-y-2 md:space-y-4">
           <div className="leading-relaxed whitespace-nowrap text-[0.55rem]">
             Frankfurt · Paris · Zürich
           </div>
