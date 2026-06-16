@@ -59,12 +59,9 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       isActive ? "text-foreground" : "text-muted-foreground/70 hover:text-foreground"
     }`;
 
-  const categoryClass = (isActive: boolean) =>
-    `block tracking-[0.04em] text-[1.05rem] font-medium transition-colors ${
-      isActive
-        ? "text-foreground font-bold"
-        : "text-muted-foreground/60 hover:text-foreground"
-    }`;
+  const categoryClass = () =>
+  "block tracking-[0.04em] text-[1.05rem] font-medium text-foreground hover:opacity-60 transition-opacity";
+
   const categoryFontStyle = { fontFamily: "'Cormorant Garamond', serif" };
   const sublabelFontStyle = { fontFamily: "'Inter', sans-serif" };
   const brandFontStyle = { fontFamily: "'Cormorant Garamond', serif" };
@@ -119,7 +116,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
               <div key={c.id} className="py-0.5 md:py-1">
                 <button
                   type="button"
-                  className={`${categoryClass(isActive)} text-left w-full`}
+                  className={`${categoryClass()} text-left w-full`}
                   style={categoryFontStyle}
                   onClick={() => goToCategory(c.id)}
                 >
@@ -162,7 +159,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       <div className="mt-4 md:mt-8 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground font-light">
         <NavLink
           to="/contact"
-          className={linkClass}
+          className="block tracking-[0.04em] text-[0.90rem] font-medium text-foreground hover:opacity-60 transition-opacity"
           style={categoryFontStyle}
           onClick={() => setOpen(false)}
         >
