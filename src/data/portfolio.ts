@@ -14,11 +14,11 @@ export interface Category {
 export const portfolio: Category[] = [
   {
     id: "food-drink",
-    label: "Food & Drinks",
+    label: "Food & Drink",
     projects: [
       {
-        id: "restaurant-pilates",
-        title: "Restaurant Pilates",
+        id: "restaurant",
+        title: "Restaurant",
         cover: "/images/photo-01.jpg",
         images: [
           "/images/photo-01.jpg",

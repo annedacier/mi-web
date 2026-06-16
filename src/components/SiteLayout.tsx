@@ -81,7 +81,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
   };
 
   const SidebarContent = (
-    <div className="flex flex-col h-full py-4 md:py-8 px-4 md:pl-4 md:pr-6 text-left">
+    <div className="flex flex-col md:flex-col h-full py-4 md:py-8 px-4 md:pl-4 md:pr-6 text-left gap-1 md:gap-0">
       {/* Brand */}
       <div className="flex-1">
         <Link
@@ -93,7 +93,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="hidden md:block text-center"
+          className="hidden md:block text-center mb-2 md:mb-0"
         >
           <span
             className="block text-[1.4rem] leading-none text-foreground font-bold uppercase tracking-[0.08em]"
@@ -127,13 +127,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
                 </button>
                 <AnimatePresence initial={false}>
                   {showProjects && (
-                    <motion.ul
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                      className="overflow-hidden ml-3 space-y-1"
-                    >
+                    <motion.ul className="hidden md:block overflow-hidden ml-3 space-y-1">
                       <li className="h-1" aria-hidden />
                       {c.projects.map((p) => {
                     const projActive =
@@ -165,16 +159,16 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       </div>
 
       {/* Contact info */}
-      <div className="mt-10 mb-4 pt-10 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground font-light">
+      <div className="mt-4 md:mt-8 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground font-light">
         <NavLink
           to="/contact"
           className={linkClass}
-          style={sublabelFontStyle}
+          style={categoryFontStyle}
           onClick={() => setOpen(false)}
         >
           Contact
         </NavLink>
-        <div className="mt-32 space-y-4">
+        <div className="mt-6 md:mt-32 space-y-2 md:space-y-4">
           <div className="leading-relaxed whitespace-nowrap text-[0.55rem]">
             Frankfurt · Paris · Zürich
           </div>
@@ -227,7 +221,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden fixed top-16 right-4 w-[260px] max-h-[calc(100vh-5rem)] overflow-hidden z-50 bg-background/95 backdrop-blur-md border border-border/40 rounded-xl shadow-xl p-4"
+            className="md:hidden fixed top-16 left-0 right-0 w-full max-h-[70vh] overflow-y-auto z-30 bg-background border-t border-border/40"
           >
             {SidebarContent}
           </motion.div>
