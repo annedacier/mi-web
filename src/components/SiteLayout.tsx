@@ -111,7 +111,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
               (p) => location.pathname === `/projects/${p.id}`
             );
 
-  // 🚫 PROYECTOS (true = proyectos / false = fotos sueltas)
+// 🚫 PROYECTOS (true = proyectos / false = fotos sueltas)
             const SHOW_PROJECTS = false;
             
             const showProjects = SHOW_PROJECTS && (
