@@ -159,7 +159,7 @@ const SiteLayout = ({ children }: SiteLayoutProps) => {
       <div className="mt-4 md:mt-8 text-[0.65rem] tracking-[0.18em] uppercase text-muted-foreground font-light">
         <NavLink
           to="/contact"
-          className="block tracking-[0.04em] text-[0.90rem] font-medium text-foreground hover:opacity-60 transition-opacity"
+          className="block text-[1.20rem] font-medium tracking-[0.04em] text-foreground normal-case hover:opacity-60 transition-opacity"
           style={categoryFontStyle}
           onClick={() => setOpen(false)}
         >
