@@ -1,8 +1,9 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SEO from "@/components/SEO";
 import SiteLayout from "@/components/SiteLayout";
+import Lightbox from "@/components/Lightbox";
 import { portfolio } from "@/data/portfolio";
 
 // Subtle editorial rhythm for project thumbnails.
@@ -16,11 +17,8 @@ const variants = [
 const Index = () => {
   // 🚫 PROYECTOS (true = proyectos / false = fotos sueltas)
   const SHOW_PROJECTS = false;
-
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
+  
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [flatImages, setFlatImages] = useState<string[]>([]);
 
   const getCategoryImages = (cat: any) => {
     if (SHOW_PROJECTS) {
@@ -31,7 +29,7 @@ const Index = () => {
         image: p.cover,
       }));
     }
-
+    
     const seen = new Set();
 
     return cat.projects
@@ -49,53 +47,16 @@ const Index = () => {
         return true;
       });
   };
-
-  const goNext = () => {
-    if (selectedIndex === null) return;
-
-    setIsAnimating(true);
-
-    const next = (selectedIndex + 1) % flatImages.length;
-
-    setTimeout(() => {
-      setSelectedIndex(next);
-      setSelectedImage(flatImages[next]);
-      setIsAnimating(false);
-    }, 150);
-  };
-
-  const goPrev = () => {
-    if (selectedIndex === null) return;
-
-    setIsAnimating(true);
-
-    const prev =
-      (selectedIndex - 1 + flatImages.length) % flatImages.length;
-
-    setTimeout(() => {
-      setSelectedIndex(prev);
-      setSelectedImage(flatImages[prev]);
-      setIsAnimating(false);
-    }, 150);
-  };
-
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (!selectedImage) return;
-
-      if (e.key === "ArrowRight") goNext();
-      if (e.key === "ArrowLeft") goPrev();
-      if (e.key === "Escape") setSelectedImage(null);
-    };
-
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [selectedImage, selectedIndex, flatImages]);
-
+  // lista global de imágenes (solo fotos sueltas)
+  const allImages = portfolio.flatMap((cat) =>
+    getCategoryImages(cat)
+      .filter((i: any) => i.type === "image")
+      .map((i: any) => i.image)
+  );
   return (
     <SiteLayout>
       <SEO />
-
+      
       {portfolio.map((cat, sIdx) => {
         const items = getCategoryImages(cat);
 
@@ -140,15 +101,9 @@ const Index = () => {
                       className="cursor-pointer group"
                       onClick={() => {
                         if (item.type !== "project") {
-                          const images = items
-                            .filter((i: any) => i.type === "image")
-                            .map((i: any) => i.image);
-
-                          const index = images.indexOf(item.image);
-
-                          setFlatImages(images);
-                          setSelectedIndex(index);
-                          setSelectedImage(item.image);
+                          setSelectedIndex(
+                            allImages.indexOf(item.image)
+                          );
                         }
                       }}
                     >
@@ -181,31 +136,26 @@ const Index = () => {
           </section>
         );
       })}
-      {/* LIGHTBOX */}
-      <AnimatePresence mode="wait">
-        {selectedImage && (
-          <motion.div
-            key="lightbox"
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center cursor-zoom-out"
-            onClick={() => setSelectedImage(null)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <motion.img
-              key={selectedImage}
-              src={selectedImage}
-              className="max-w-[90vw] max-h-[90vh] object-contain"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.98, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.6, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* LIGHTBOX (único, limpio) */}
+      {selectedIndex !== null && (
+        <Lightbox
+          photo={{
+            src: allImages[selectedIndex],
+            alt: "",
+          }}
+          currentIndex={selectedIndex}
+          totalPhotos={allImages.length}
+          onClose={() => setSelectedIndex(null)}
+          onNext={() =>
+            setSelectedIndex((selectedIndex + 1) % allImages.length)
+          }
+          onPrev={() =>
+            setSelectedIndex(
+              (selectedIndex - 1 + allImages.length) % allImages.length
+            )
+          }
+        />
+      )}
     </SiteLayout>
   );
 };
