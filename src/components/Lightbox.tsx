@@ -106,9 +106,11 @@ const Lightbox = ({
         </motion.div>
 
         {/* Counter */}
+        {/*
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-caption text-muted-foreground">
           {currentIndex + 1} / {totalPhotos}
         </div>
+        */}
       </motion.div>
     </AnimatePresence>
   );
