@@ -37,6 +37,16 @@ export const portfolio: Category[] = [
           "/images/photo-01.jpg",
         ],
       },
+      {
+        id: "wine-brand",
+        title: "Wine Brand",
+        cover: "/images/photo-04.jpg",
+        images: [
+          "/images/photo-03.jpg",
+          "/images/photo-04.jpg",
+          "/images/photo-01.jpg",
+        ],
+      },
     ],
   },
   {
